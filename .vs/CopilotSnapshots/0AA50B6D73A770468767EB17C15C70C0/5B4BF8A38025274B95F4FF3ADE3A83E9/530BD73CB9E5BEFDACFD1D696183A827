@@ -1,0 +1,19 @@
+﻿namespace ExpenseTracker.Infrastructure.Repositories;
+
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+
+public class EfPersonRepository : IPersonRepository
+{
+    private readonly AppDbContext _db;
+
+    public EfPersonRepository(AppDbContext db) => _db = db;
+
+    public Task<Person?> GetByIdAsync(Guid id)
+    {
+        return _db.Persons.Include(p => p.Transactions).FirstOrDefaultAsync(p => p.Id == id);
+    }
+}

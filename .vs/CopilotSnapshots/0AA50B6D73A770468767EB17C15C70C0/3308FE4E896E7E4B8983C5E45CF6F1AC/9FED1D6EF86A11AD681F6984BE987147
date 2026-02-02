@@ -1,0 +1,25 @@
+﻿namespace ExpenseTracker.Infrastructure;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ExpenseTracker.Infrastructure.Data;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+    {
+        // Configure DbContext
+        services.AddDbContext<AppDbContext>(options =>
+        {
+            var connectionString = config.GetConnectionString("DefaultConnection") ?? "Data Source=expense_tracker.db";
+            options.UseSqlite(connectionString);
+        });
+
+        // Register repositories here if they exist
+        // Example:
+        // services.AddScoped<IPersonRepository, PersonRepository>();
+
+        return services;
+    }
+}

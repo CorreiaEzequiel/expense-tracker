@@ -1,0 +1,141 @@
+﻿namespace ExpenseTracker.Domain.Entities;
+
+using ExpenseTracker.Domain.Entities.Enums;
+
+/// <summary>
+/// Entidade que representa uma transação de uma pessoa
+/// Implementa regras de negócio específicas para validação
+/// </summary>
+public class Transaction
+{
+    public Guid Id { get; private set; }
+    public string Description { get; private set; }
+    public decimal Value { get; private set; }
+    public TransactionType Type { get; private set; }
+    public Guid CategoryId { get; private set; }
+    public Guid PersonId { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+
+    // Navigation properties
+    public Person? Person { get; private set; }
+    public Category? Category { get; private set; }
+
+    /// <summary>
+    /// Construtor protegido para permitir inicialização apenas através de métodos factory
+    /// </summary>
+    protected Transaction()
+    {
+    }
+
+    /// <summary>
+    /// Cria uma nova transação com todas as validações de regra de negócio
+    /// </summary>
+    /// <remarks>
+    /// Validações:
+    /// 1. Valor deve ser positivo
+    /// 2. Menores de 18 anos não podem registrar receitas
+    /// 3. A categoria deve suportar o tipo de transação
+    /// </remarks>
+    public static Transaction Create(
+        string description,
+        decimal value,
+        TransactionType type,
+        Guid categoryId,
+        Guid personId,
+        Category category,
+        Person person)
+    {
+        // Validação 1: Descrição não pode ser vazia
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+
+        if (description.Length > 400)
+            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+
+        // Validação 2: Valor não pode ser negativo ou zero
+        if (value <= 0)
+            throw new ArgumentException("Valor da transação deve ser maior que zero", nameof(value));
+
+        // Validação 3: Tipo de transação deve ser válido
+        if (!Enum.IsDefined(typeof(TransactionType), type))
+            throw new ArgumentException("Tipo de transação inválido", nameof(type));
+
+        // Validação 4: Menores de 18 anos não podem registrar receitas
+        if (type == TransactionType.Revenue && person.Age < 18)
+            throw new InvalidOperationException(
+                "Menores de 18 anos não podem registrar transações de receita");
+
+        // Validação 5: A categoria deve suportar o tipo de transação
+        if (type == TransactionType.Expense && !category.SupportsExpense())
+            throw new InvalidOperationException(
+                "A categoria selecionada não suporta transações de despesa");
+
+        if (type == TransactionType.Revenue && !category.SupportsRevenue())
+            throw new InvalidOperationException(
+                "A categoria selecionada não suporta transações de receita");
+
+        return new Transaction
+        {
+            Id = Guid.NewGuid(),
+            Description = description,
+            Value = value,
+            Type = type,
+            CategoryId = categoryId,
+            PersonId = personId,
+            CreatedAt = DateTime.UtcNow,
+            Category = category,
+            Person = person
+        };
+    }
+
+    /// <summary>
+    /// Atualiza a descrição da transação
+    /// </summary>
+    public void UpdateDescription(string description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+
+        if (description.Length > 400)
+            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+
+        Description = description;
+    }
+
+    /// <summary>
+    /// Atualiza o valor da transação
+    /// </summary>
+    public void UpdateValue(decimal value)
+    {
+        if (value <= 0)
+            throw new ArgumentException("Valor da transação deve ser maior que zero", nameof(value));
+
+        Value = value;
+    }
+
+    /// <summary>
+    /// Atualiza a categoria da transação com validação
+    /// </summary>
+    public void UpdateCategory(Category category)
+    {
+        if (category == null)
+            throw new ArgumentNullException(nameof(category), "Categoria não pode ser nula");
+
+        // Valida se a nova categoria suporta o tipo de transação
+        if (Type == TransactionType.Expense && !category.SupportsExpense())
+            throw new InvalidOperationException(
+                "A categoria selecionada não suporta transações de despesa");
+
+        if (Type == TransactionType.Revenue && !category.SupportsRevenue())
+            throw new InvalidOperationException(
+                "A categoria selecionada não suporta transações de receita");
+
+        Category = category;
+        CategoryId = category.Id;
+    }
+
+    /// <summary>
+    /// Verifica se a transação foi criada recentemente (últimas 24 horas)
+    /// </summary>
+    public bool IsRecent() => (DateTime.UtcNow - CreatedAt).TotalHours <= 24;
+}

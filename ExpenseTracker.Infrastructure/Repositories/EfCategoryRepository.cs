@@ -1,0 +1,33 @@
+namespace ExpenseTracker.Infrastructure.Repositories;
+
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+
+public class EfCategoryRepository : ICategoryRepository
+{
+    private readonly AppDbContext _db;
+
+    public EfCategoryRepository(AppDbContext db) => _db = db;
+
+    public Task<Category?> GetByIdAsync(Guid id)
+    {
+        return _db.Categories.FirstOrDefaultAsync(c => c.Id == id);
+    }
+
+    public Task AddAsync(Category category)
+    {
+        _db.Categories.Add(category);
+        return Task.CompletedTask;
+    }
+
+    public Task<System.Collections.Generic.List<Category>> GetAllAsync()
+    {
+        // Use ToListAsync for proper EF async execution
+        return _db.Categories.ToListAsync();
+    }
+
+    public Task SaveChangesAsync() => _db.SaveChangesAsync();
+}

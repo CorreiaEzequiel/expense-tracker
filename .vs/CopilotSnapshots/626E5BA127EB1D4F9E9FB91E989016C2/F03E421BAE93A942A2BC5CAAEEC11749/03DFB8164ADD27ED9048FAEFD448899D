@@ -1,0 +1,15 @@
+﻿namespace ExpenseTracker.Domain;
+
+public class Class1
+{
+
+}
+
+namespace ExpenseTracker.Domain.Common;
+
+public enum ResultType
+{
+    Success = 0,
+    Warning = 1,
+    Error = 2
+}

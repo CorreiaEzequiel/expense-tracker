@@ -1,0 +1,97 @@
+﻿namespace ExpenseTracker.Application.Services;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Application.Interfaces;
+using ExpenseTracker.Domain.Common;
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.Entities.Enums;
+using Microsoft.EntityFrameworkCore;
+using ExpenseTracker.Infrastructure.Data;
+
+public class TransactionService : ITransactionService
+{
+    private readonly AppDbContext _db;
+
+    public TransactionService(AppDbContext db)
+    {
+        _db = db;
+    }
+
+    public async Task<Result<TransactionResponse>> CreateAsync(CreateTransactionRequest request)
+    {
+        // Buscar pessoa
+        var person = await _db.Persons.Include(p => p.Transactions).FirstOrDefaultAsync(p => p.Id == request.PersonId);
+        if (person == null) return Result<TransactionResponse>.Error("Pessoa não encontrada");
+
+        // Se menor de 18 e receita -> Warning
+        if (request.Type == TransactionType.Revenue && person.Age < 18)
+            return Result<TransactionResponse>.Warning(default, "Menores de 18 anos não podem registrar receitas");
+
+        // Buscar categoria
+        var category = await _db.Categories.FirstOrDefaultAsync(c => c.Id == request.CategoryId);
+        if (category == null) return Result<TransactionResponse>.Error("Categoria não encontrada");
+
+        // Validar compatibilidade
+        if (request.Type == TransactionType.Expense && !category.SupportsExpense())
+            return Result<TransactionResponse>.Error("A categoria selecionada não suporta transações de despesa");
+
+        if (request.Type == TransactionType.Revenue && !category.SupportsRevenue())
+            return Result<TransactionResponse>.Error("A categoria selecionada não suporta transações de receita");
+
+        // Criar transação
+        var transaction = Transaction.Create(request.Description, request.Value, request.Type, request.CategoryId, request.PersonId, category, person);
+
+        _db.Transactions.Add(transaction);
+        await _db.SaveChangesAsync();
+
+        var response = new TransactionResponse(transaction.Id, transaction.Description, transaction.Value, transaction.Type, transaction.CategoryId, transaction.PersonId, transaction.CreatedAt);
+
+        return Result<TransactionResponse>.Success(response);
+    }
+
+    public async Task<Result<IEnumerable<PersonSummaryResponse>>> GetSummaryByPersonAsync()
+    {
+        var persons = await _db.Persons
+            .Include(p => p.Transactions)
+            .ToListAsync();
+
+        var summaries = persons.Select(p =>
+        {
+            var totalRevenue = p.Transactions.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value);
+            var totalExpense = p.Transactions.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value);
+            var balance = totalRevenue - totalExpense;
+            return new PersonSummaryResponse(p.Id, p.Name, totalRevenue, totalExpense, balance);
+        }).ToList();
+
+        return Result<IEnumerable<PersonSummaryResponse>>.Success(summaries);
+    }
+
+    public async Task<Result<IEnumerable<CategorySummaryResponse>>> GetSummaryByCategoryAsync()
+    {
+        var categories = await _db.Categories
+            .ToListAsync();
+
+        var summaries = new List<CategorySummaryResponse>();
+
+        foreach (var c in categories)
+        {
+            var transactions = await _db.Transactions.Where(t => t.CategoryId == c.Id).ToListAsync();
+            var totalRevenue = transactions.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value);
+            var totalExpense = transactions.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value);
+            var balance = totalRevenue - totalExpense;
+            summaries.Add(new CategorySummaryResponse(c.Id, c.Description, totalRevenue, totalExpense, balance));
+        }
+
+        return Result<IEnumerable<CategorySummaryResponse>>.Success(summaries);
+    }
+
+    public async Task<Result<ReportSummaryResponse>> GetOverallSummaryAsync()
+    {
+        var transactions = await _db.Transactions.ToListAsync();
+        var totalRevenue = transactions.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value);
+        var totalExpense = transactions.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value);
+        var net = totalRevenue - totalExpense;
+        var response = new ReportSummaryResponse(totalRevenue, totalExpense, net);
+        return Result<ReportSummaryResponse>.Success(response);
+    }
+}

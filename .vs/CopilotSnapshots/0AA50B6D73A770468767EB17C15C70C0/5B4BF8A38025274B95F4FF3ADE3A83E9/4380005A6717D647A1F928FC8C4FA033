@@ -1,0 +1,24 @@
+﻿namespace ExpenseTracker.Infrastructure.Repositories;
+
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class EfTransactionRepository : ITransactionRepository
+{
+    private readonly AppDbContext _db;
+
+    public EfTransactionRepository(AppDbContext db) => _db = db;
+
+    public IQueryable<Transaction> Query() => _db.Transactions.AsQueryable();
+
+    public Task AddAsync(Transaction transaction)
+    {
+        _db.Transactions.Add(transaction);
+        return Task.CompletedTask;
+    }
+
+    public Task SaveChangesAsync() => _db.SaveChangesAsync();
+}

@@ -1,0 +1,87 @@
+﻿namespace ExpenseTracker.Application.Services;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Application.Interfaces;
+using ExpenseTracker.Domain.Common;
+using ExpenseTracker.Infrastructure.Repositories;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+public class PersonService : IPersonService
+{
+    private readonly IPersonRepository _personRepository;
+    private readonly ITransactionRepository _transactionRepository;
+
+    public PersonService(IPersonRepository personRepository, ITransactionRepository transactionRepository)
+    {
+        _personRepository = personRepository;
+        _transactionRepository = transactionRepository;
+    }
+
+    public async Task<Result<PersonResponse>> CreateAsync(CreatePersonRequest request)
+    {
+        var person = ExpenseTracker.Domain.Entities.Person.Create(request.Name, request.Age);
+        await _personRepository.AddAsync(person);
+        await _personRepository.SaveChangesAsync();
+        var dto = new PersonResponse(person.Id, person.Name, person.Age);
+        return Result<PersonResponse>.Success(dto);
+    }
+
+    public async Task<Result<PersonResponse>> GetByIdAsync(System.Guid id)
+    {
+        var person = await _personRepository.GetByIdAsync(id);
+        if (person == null) return Result<PersonResponse>.Error("Pessoa não encontrada");
+        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.Age));
+    }
+
+    public async Task<Result<IEnumerable<PersonResponse>>> GetAllAsync()
+    {
+        var people = await _personRepository.GetAllAsync();
+        var dtos = people.Select(p => new PersonResponse(p.Id, p.Name, p.Age));
+        return Result<IEnumerable<PersonResponse>>.Success(dtos);
+    }
+
+    public async Task<Result<PersonResponse>> UpdateAsync(System.Guid id, CreatePersonRequest request)
+    {
+        var person = await _personRepository.GetByIdAsync(id);
+        if (person == null) return Result<PersonResponse>.Error("Pessoa não encontrada");
+        person.UpdateName(request.Name);
+        person.UpdateAge(request.Age);
+        await _personRepository.SaveChangesAsync();
+        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.Age));
+    }
+
+    public async Task<Result<bool>> DeleteAsync(System.Guid id)
+    {
+        var person = await _personRepository.GetByIdAsync(id);
+        if (person == null) return Result<bool>.Error("Pessoa não encontrada");
+        _personRepository.Remove(person);
+        await _personRepository.SaveChangesAsync();
+        return Result<bool>.Success(true);
+    }
+
+    public async Task<Result<PeopleReportResponse>> GetPeopleSummaryAsync()
+    {
+        var q = _transactionRepository.QueryWithIncludes();
+
+        var groups = q.GroupBy(t => new { t.PersonId, t.Person!.Name })
+            .Select(g => new PersonSummaryResponse(
+                g.Key.PersonId,
+                g.Key.Name,
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value),
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value),
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value)
+            ));
+
+        var list = await groups.ToListAsync();
+
+        var totalRevenue = list.Sum(x => x.TotalRevenue);
+        var totalExpense = list.Sum(x => x.TotalExpense);
+        var net = totalRevenue - totalExpense;
+
+        var report = new PeopleReportResponse(list, totalRevenue, totalExpense, net);
+        return Result<PeopleReportResponse>.Success(report);
+    }
+}

@@ -1,0 +1,12 @@
+namespace ExpenseTracker.Application.Interfaces;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Domain.Common;
+
+public interface ICategoryService
+{
+    Task<Result<CategoryResponse>> CreateAsync(CreateCategoryRequest request);
+    Task<Result<IEnumerable<CategoryResponse>>> GetAllAsync();
+    Task<Result<CategoryResponse>> GetByIdAsync(Guid id);
+    Task<Result<CategoriesReportResponse>> GetCategorySummaryAsync();
+}

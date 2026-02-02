@@ -1,0 +1,17 @@
+namespace ExpenseTracker.Domain.Entities.Enums;
+
+/// <summary>
+/// Enum que define o tipo de uma transação
+/// </summary>
+public enum TransactionType
+{
+    /// <summary>
+    /// Transação de despesa
+    /// </summary>
+    Expense = 0,
+
+    /// <summary>
+    /// Transação de receita
+    /// </summary>
+    Revenue = 1
+}

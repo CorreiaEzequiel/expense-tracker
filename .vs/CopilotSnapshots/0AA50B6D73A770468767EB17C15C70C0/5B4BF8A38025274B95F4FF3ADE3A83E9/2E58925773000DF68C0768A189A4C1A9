@@ -1,0 +1,10 @@
+﻿namespace ExpenseTracker.Application.Interfaces;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Domain.Common;
+
+public interface IPersonService
+{
+    Task<Result<PersonResponse>> CreateAsync(CreatePersonRequest request);
+    Task<Result<PersonResponse>> GetByIdAsync(Guid id);
+}

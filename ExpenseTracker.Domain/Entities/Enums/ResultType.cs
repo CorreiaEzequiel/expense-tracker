@@ -1,0 +1,22 @@
+namespace ExpenseTracker.Domain.Entities.Enums;
+
+/// <summary>
+/// Enum que define o tipo de resultado de uma operação
+/// </summary>
+public enum ResultType
+{
+    /// <summary>
+    /// Operação realizada com sucesso
+    /// </summary>
+    Success = 0,
+
+    /// <summary>
+    /// Operação realizada com aviso
+    /// </summary>
+    Warning = 1,
+
+    /// <summary>
+    /// Operação realizada com erro
+    /// </summary>
+    Error = 2
+}

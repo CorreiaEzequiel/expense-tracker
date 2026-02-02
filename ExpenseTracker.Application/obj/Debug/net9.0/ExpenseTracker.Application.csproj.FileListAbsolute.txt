@@ -1,0 +1,17 @@
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Application.deps.json
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Application.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Application.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.AssemblyInfoInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.AssemblyInfo.cs
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.csproj.CoreCompileInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\refint\ExpenseTracker.Application.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ref\ExpenseTracker.Application.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Domain.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Infrastructure.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Domain.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\bin\Debug\net9.0\ExpenseTracker.Infrastructure.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseTracker.Application.csproj.AssemblyReference.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Application\obj\Debug\net9.0\ExpenseT.086D7044.Up2Date

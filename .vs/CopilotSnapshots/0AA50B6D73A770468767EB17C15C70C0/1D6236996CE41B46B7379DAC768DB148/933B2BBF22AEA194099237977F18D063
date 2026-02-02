@@ -1,0 +1,80 @@
+﻿namespace ExpenseTracker.Application.Services;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Application.Interfaces;
+using ExpenseTracker.Domain.Common;
+using ExpenseTracker.Infrastructure.Repositories;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class CategoryService : ICategoryService
+{
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly ITransactionRepository _transactionRepository;
+
+    public CategoryService(ICategoryRepository categoryRepository, ITransactionRepository transactionRepository)
+    {
+        _categoryRepository = categoryRepository;
+        _transactionRepository = transactionRepository;
+    }
+
+    public async Task<Result<CategoryResponse>> CreateAsync(CreateCategoryRequest request)
+    {
+        Category category;
+        try
+        {
+            category = ExpenseTracker.Domain.Entities.Category.Create(request.Description, request.Purpose);
+        }
+        catch (Exception ex)
+        {
+            return Result<CategoryResponse>.Error(ex.Message);
+        }
+
+        try
+        {
+            await _categoryRepository.AddAsync(category);
+            await _categoryRepository.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            return Result<CategoryResponse>.Error(ex.Message);
+        }
+
+        return Result<CategoryResponse>.Success(new CategoryResponse(category.Id, category.Description, category.Purpose));
+    }
+
+    public async Task<Result<IEnumerable<CategoryResponse>>> GetAllAsync()
+    {
+        var categories = await _categoryRepository.GetAllAsync();
+        var dtos = categories.Select(c => new CategoryResponse(c.Id, c.Description, c.Purpose));
+        return Result<IEnumerable<CategoryResponse>>.Success(dtos);
+    }
+
+    public async Task<Result<CategoryResponse>> GetByIdAsync(System.Guid id)
+    {
+        var c = await _categoryRepository.GetByIdAsync(id);
+        if (c == null) return Result<CategoryResponse>.Error("Categoria não encontrada");
+        return Result<CategoryResponse>.Success(new CategoryResponse(c.Id, c.Description, c.Purpose));
+    }
+
+    public async Task<Result<CategoriesReportResponse>> GetCategorySummaryAsync()
+    {
+        var q = _transactionRepository.QueryWithIncludes();
+        var groups = q.GroupBy(t => new { t.CategoryId, t.Category!.Description })
+            .Select(g => new CategorySummaryResponse(
+                g.Key.CategoryId,
+                g.Key.Description,
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value),
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value),
+                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value)
+            ));
+
+        var list = await Task.FromResult(groups.ToList());
+        var totalRevenue = list.Sum(x => x.TotalRevenue);
+        var totalExpense = list.Sum(x => x.TotalExpense);
+        var net = totalRevenue - totalExpense;
+        var report = new CategoriesReportResponse(list, totalRevenue, totalExpense, net);
+        return Result<CategoriesReportResponse>.Success(report);
+    }
+}

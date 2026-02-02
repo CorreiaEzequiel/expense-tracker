@@ -1,0 +1,77 @@
+﻿namespace ExpenseTracker.Domain.Entities;
+
+using ExpenseTracker.Domain.Entities.Enums;
+
+/// <summary>
+/// Entidade que representa uma categoria de transações
+/// </summary>
+public class Category
+{
+    public Guid Id { get; private set; }
+    public string Description { get; private set; }
+    public CategoryPurpose Purpose { get; private set; }
+
+    /// <summary>
+    /// Construtor protegido para permitir inicialização apenas através de métodos factory
+    /// </summary>
+    protected Category()
+    {
+    }
+
+    /// <summary>
+    /// Cria uma nova categoria com validação
+    /// </summary>
+    public static Category Create(string description, CategoryPurpose purpose)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+
+        if (description.Length > 400)
+            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+
+        if (!Enum.IsDefined(typeof(CategoryPurpose), purpose))
+            throw new ArgumentException("Propósito de categoria inválido", nameof(purpose));
+
+        return new Category
+        {
+            Id = Guid.NewGuid(),
+            Description = description,
+            Purpose = purpose
+        };
+    }
+
+    /// <summary>
+    /// Atualiza a descrição da categoria
+    /// </summary>
+    public void UpdateDescription(string description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+
+        if (description.Length > 400)
+            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+
+        Description = description;
+    }
+
+    /// <summary>
+    /// Atualiza o propósito da categoria
+    /// </summary>
+    public void UpdatePurpose(CategoryPurpose purpose)
+    {
+        if (!Enum.IsDefined(typeof(CategoryPurpose), purpose))
+            throw new ArgumentException("Propósito de categoria inválido", nameof(purpose));
+
+        Purpose = purpose;
+    }
+
+    /// <summary>
+    /// Verifica se a categoria suporta transações de despesa
+    /// </summary>
+    public bool SupportsExpense() => Purpose == CategoryPurpose.Expense || Purpose == CategoryPurpose.Both;
+
+    /// <summary>
+    /// Verifica se a categoria suporta transações de receita
+    /// </summary>
+    public bool SupportsRevenue() => Purpose == CategoryPurpose.Revenue || Purpose == CategoryPurpose.Both;
+}

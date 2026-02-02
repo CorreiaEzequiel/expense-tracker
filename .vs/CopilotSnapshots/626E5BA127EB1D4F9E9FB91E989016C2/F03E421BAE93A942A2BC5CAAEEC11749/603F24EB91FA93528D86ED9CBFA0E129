@@ -1,0 +1,77 @@
+﻿namespace ExpenseTracker.Domain.Entities;
+
+/// <summary>
+/// Entidade que representa uma pessoa no sistema
+/// </summary>
+public class Person
+{
+    public Guid Id { get; private set; }
+    public string Name { get; private set; }
+    public int Age { get; private set; }
+
+    /// <summary>
+    /// Coleção de transações associadas a esta pessoa
+    /// </summary>
+    public ICollection<Transaction> Transactions { get; private set; }
+
+    /// <summary>
+    /// Construtor protegido para permitir inicialização apenas através de métodos factory
+    /// </summary>
+    protected Person()
+    {
+        Transactions = new List<Transaction>();
+    }
+
+    /// <summary>
+    /// Cria uma nova pessoa com validação
+    /// </summary>
+    public static Person Create(string name, int age)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Nome não pode ser vazio", nameof(name));
+
+        if (name.Length > 200)
+            throw new ArgumentException("Nome não pode exceder 200 caracteres", nameof(name));
+
+        if (age < 0)
+            throw new ArgumentException("Idade não pode ser negativa", nameof(age));
+
+        return new Person
+        {
+            Id = Guid.NewGuid(),
+            Name = name,
+            Age = age,
+            Transactions = new List<Transaction>()
+        };
+    }
+
+    /// <summary>
+    /// Atualiza o nome da pessoa
+    /// </summary>
+    public void UpdateName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Nome não pode ser vazio", nameof(name));
+
+        if (name.Length > 200)
+            throw new ArgumentException("Nome não pode exceder 200 caracteres", nameof(name));
+
+        Name = name;
+    }
+
+    /// <summary>
+    /// Atualiza a idade da pessoa
+    /// </summary>
+    public void UpdateAge(int age)
+    {
+        if (age < 0)
+            throw new ArgumentException("Idade não pode ser negativa", nameof(age));
+
+        Age = age;
+    }
+
+    /// <summary>
+    /// Verifica se a pessoa é maior de idade
+    /// </summary>
+    public bool IsAdult() => Age >= 18;
+}

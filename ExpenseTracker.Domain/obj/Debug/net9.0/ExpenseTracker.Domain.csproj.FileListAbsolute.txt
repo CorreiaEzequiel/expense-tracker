@@ -1,0 +1,11 @@
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.AssemblyInfoInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.AssemblyInfo.cs
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.csproj.CoreCompileInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\bin\Debug\net9.0\ExpenseTracker.Domain.deps.json
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\bin\Debug\net9.0\ExpenseTracker.Domain.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\bin\Debug\net9.0\ExpenseTracker.Domain.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\refint\ExpenseTracker.Domain.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ExpenseTracker.Domain.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Domain\obj\Debug\net9.0\ref\ExpenseTracker.Domain.dll

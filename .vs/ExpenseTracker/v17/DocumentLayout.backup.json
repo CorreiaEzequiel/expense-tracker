@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\common\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\common\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\enums\\categorypurpose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\enums\\categorypurpose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\enums\\transactiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\enums\\transactiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\enums\\resulttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\enums\\resulttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB19543-3432-4AAA-8F3E-745FA338FC5A}|ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.webapi\\expensetracker.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0FB19543-3432-4AAA-8F3E-745FA338FC5A}|ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj|solutionrelative:expensetracker.webapi\\expensetracker.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|c:\\maxiprod\\expensetracker\\expensetracker\\expensetracker.domain\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85F0B98D-11B6-910A-8C5E-831A813C8FC8}|ExpenseTracker.Domain\\ExpenseTracker.Domain.csproj|solutionrelative:expensetracker.domain\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TransactionType.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\TransactionType.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Enums\\TransactionType.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\TransactionType.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Enums\\TransactionType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:39:44.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoryPurpose.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\CategoryPurpose.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Enums\\CategoryPurpose.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\CategoryPurpose.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Enums\\CategoryPurpose.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:39:42.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Result.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Common\\Result.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Common\\Result.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Common\\Result.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Common\\Result.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:39:40.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExpenseTracker.WebApi",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj",
+              "RelativeDocumentMoniker": "ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj",
+              "RelativeToolTip": "ExpenseTracker.WebApi\\ExpenseTracker.WebApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-31T19:33:27.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Transaction.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Transaction.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Transaction.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Transaction.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Transaction.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAqwIEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:40:01.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Person.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Person.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Person.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Person.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Person.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:39:49.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ResultType.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\ResultType.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Enums\\ResultType.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Enums\\ResultType.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Enums\\ResultType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:54:37.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "ExpenseTracker.Domain\\Entities\\Category.cs",
+              "ToolTip": "C:\\MaxiPROD\\ExpenseTracker\\ExpenseTracker\\ExpenseTracker.Domain\\Entities\\Category.cs",
+              "RelativeToolTip": "ExpenseTracker.Domain\\Entities\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T19:39:53.104Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+namespace ExpenseTracker.Domain.Entities.Enums;
+
+/// <summary>
+/// Enum que define o propósito de uma categoria
+/// </summary>
+public enum CategoryPurpose
+{
+    /// <summary>
+    /// Categoria para despesas
+    /// </summary>
+    Expense = 0,
+
+    /// <summary>
+    /// Categoria para receitas
+    /// </summary>
+    Revenue = 1,
+
+    /// <summary>
+    /// Categoria para ambos os tipos
+    /// </summary>
+    Both = 2
+}

@@ -1,0 +1,13 @@
+﻿namespace ExpenseTracker.Application.Interfaces;
+
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Domain.Common;
+
+public interface ITransactionService
+{
+    Task<Result<TransactionResponse>> CreateAsync(CreateTransactionRequest request);
+
+    Task<Result<IEnumerable<PersonSummaryResponse>>> GetSummaryByPersonAsync();
+    Task<Result<IEnumerable<CategorySummaryResponse>>> GetSummaryByCategoryAsync();
+    Task<Result<ReportSummaryResponse>> GetOverallSummaryAsync();
+}

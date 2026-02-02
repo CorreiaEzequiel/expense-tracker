@@ -1,0 +1,15 @@
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\bin\Debug\net9.0\ExpenseTracker.Infrastructure.deps.json
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\bin\Debug\net9.0\ExpenseTracker.Infrastructure.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\bin\Debug\net9.0\ExpenseTracker.Infrastructure.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.AssemblyInfoInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.AssemblyInfo.cs
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.csproj.CoreCompileInputs.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\refint\ExpenseTracker.Infrastructure.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ref\ExpenseTracker.Infrastructure.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseTracker.Infrastructure.csproj.AssemblyReference.cache
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\bin\Debug\net9.0\ExpenseTracker.Domain.dll
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\bin\Debug\net9.0\ExpenseTracker.Domain.pdb
+C:\MaxiPROD\ExpenseTracker\ExpenseTracker\ExpenseTracker.Infrastructure\obj\Debug\net9.0\ExpenseT.546500FC.Up2Date

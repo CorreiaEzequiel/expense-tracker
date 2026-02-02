@@ -1,0 +1,35 @@
+﻿namespace ExpenseTracker.WebApi.Controllers;
+
+using Microsoft.AspNetCore.Mvc;
+using ExpenseTracker.Application.Interfaces;
+using ExpenseTracker.Application.DTOs;
+using ExpenseTracker.Domain.Common;
+
+[ApiController]
+[Route("api/[controller]")]
+public class TransactionsController : BaseController
+{
+    private readonly ITransactionService _transactionService;
+
+    public TransactionsController(ITransactionService transactionService)
+    {
+        _transactionService = transactionService;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateTransactionRequest request)
+    {
+        var result = await _transactionService.CreateTransactionAsync(request);
+        return ProcessResult(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        // For simplicity return overall summary
+        var overall = await _transactionService.GetOverallSummaryAsync();
+        return ProcessResult(overall);
+    }
+
+    
+}
