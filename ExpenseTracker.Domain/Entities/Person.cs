@@ -1,5 +1,7 @@
 namespace ExpenseTracker.Domain.Entities;
 
+using ExpenseTracker.Domain.Common;
+
 public class Person
 {
     public Guid Id { get; private set; }
@@ -13,48 +15,52 @@ public class Person
         Transactions = new List<Transaction>();
     }
 
-    public static Person Create(string name, int age)
+    public static Result<Person> Create(string name, int age)
     {
-        throw new NotSupportedException("Use Create(string name, DateTime dateOfBirth) instead.");
+        return Result<Person>.Error("Use Create(string name, DateTime dateOfBirth) instead.");
     }
 
-    public static Person Create(string name, DateTime dateOfBirth)
+    public static Result<Person> Create(string name, DateTime dateOfBirth)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Nome n�o pode ser vazio", nameof(name));
+            return Result<Person>.Error("Nome não pode ser vazio");
 
         if (name.Length > 200)
-            throw new ArgumentException("Nome n�o pode exceder 200 caracteres", nameof(name));
+            return Result<Person>.Error("Nome não pode exceder 200 caracteres");
 
-        if (dateOfBirth > DateTime.Today)
-            throw new ArgumentException("Data de nascimento n�o pode ser no futuro", nameof(dateOfBirth));
+        if (dateOfBirth.Date > DateTime.Today)
+            return Result<Person>.Error("Data de nascimento não pode ser no futuro");
 
-        return new Person
+        var person = new Person
         {
             Id = Guid.NewGuid(),
             Name = name,
             DateOfBirth = dateOfBirth,
             Transactions = new List<Transaction>()
         };
+
+        return Result<Person>.Success(person);
     }
 
-    public void UpdateName(string name)
+    public Result<bool> UpdateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Nome n�o pode ser vazio", nameof(name));
+            return Result<bool>.Error("Nome não pode ser vazio");
 
         if (name.Length > 200)
-            throw new ArgumentException("Nome n�o pode exceder 200 caracteres", nameof(name));
+            return Result<bool>.Error("Nome não pode exceder 200 caracteres");
 
         Name = name;
+        return Result<bool>.Success(true);
     }
 
-    public void UpdateDateOfBirth(DateTime dateOfBirth)
+    public Result<bool> UpdateDateOfBirth(DateTime dateOfBirth)
     {
-        if (dateOfBirth > DateTime.Today)
-            throw new ArgumentException("Data de nascimento n�o pode ser no futuro", nameof(dateOfBirth));
+        if (dateOfBirth.Date > DateTime.Today)
+            return Result<bool>.Error("Data de nascimento não pode ser no futuro");
 
         DateOfBirth = dateOfBirth;
+        return Result<bool>.Success(true);
     }
 
     /// <summary>

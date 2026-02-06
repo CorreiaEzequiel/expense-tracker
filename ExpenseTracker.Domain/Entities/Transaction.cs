@@ -70,41 +70,41 @@ public class Transaction
         return Result<Transaction>.Success(transaction);
     }
 
-    public void UpdateDescription(string description)
+    public Result<bool> UpdateDescription(string description)
     {
         if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+            return Result<bool>.Error("Descrição não pode ser vazia");
 
         if (description.Length > 400)
-            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+            return Result<bool>.Error("Descrição não pode exceder 400 caracteres");
 
         Description = description;
+        return Result<bool>.Success(true);
     }
 
-    
-    public void UpdateValue(decimal value)
+    public Result<bool> UpdateValue(decimal value)
     {
         if (value <= 0)
-            throw new ArgumentException("Valor da transação deve ser maior que zero", nameof(value));
+            return Result<bool>.Error("Valor da transação deve ser maior que zero");
 
         Value = value;
+        return Result<bool>.Success(true);
     }
 
-    public void UpdateCategory(Category category)
+    public Result<bool> UpdateCategory(Category category)
     {
         if (category == null)
-            throw new ArgumentNullException(nameof(category), "Categoria não pode ser nula");
+            return Result<bool>.Error("Categoria não pode ser nula");
 
         if (Type == TransactionType.Expense && !category.SupportsExpense())
-            throw new InvalidOperationException(
-                "A categoria selecionada não suporta transações de despesa");
+            return Result<bool>.Error("A categoria selecionada não suporta transações de despesa");
 
         if (Type == TransactionType.Revenue && !category.SupportsRevenue())
-            throw new InvalidOperationException(
-                "A categoria selecionada não suporta transações de receita");
+            return Result<bool>.Error("A categoria selecionada não suporta transações de receita");
 
         Category = category;
         CategoryId = category.Id;
+        return Result<bool>.Success(true);
     }
 
     public bool IsRecent() => (DateTime.UtcNow - CreatedAt).TotalHours <= 24;

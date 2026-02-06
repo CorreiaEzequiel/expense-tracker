@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import apiClient from '../api/apiClient'
 import type { PersonResponse, CreatePersonRequest } from '../types'
+import { transactionKeys } from './useTransactions'
 
 // Query keys
 export const personKeys = {
@@ -44,6 +45,8 @@ export const useCreatePerson = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: personKeys.all })
+      // Atualiza o relatório geral automaticamente
+      queryClient.invalidateQueries({ queryKey: transactionKeys.summary })
     },
   })
 }
@@ -74,6 +77,8 @@ export const useDeletePerson = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: personKeys.all })
+      // Atualiza o relatório geral automaticamente
+      queryClient.invalidateQueries({ queryKey: transactionKeys.summary })
     },
   })
 }

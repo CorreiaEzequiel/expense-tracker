@@ -26,7 +26,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de sucesso
     /// </summary>
-    public static Result<T> Success(T? data = default, string message = "Opera��o realizada com sucesso")
+    public static Result<T> Success(T? data = default, string message = "Operação realizada com sucesso")
     {
         return new Result<T>(true, data, message, ResultType.Success);
     }
@@ -34,7 +34,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de aviso
     /// </summary>
-    public static Result<T> Warning(T? data = default, string message = "Opera��o realizada com aviso")
+    public static Result<T> Warning(T? data = default, string message = "Operaçãoo realizada com aviso")
     {
         return new Result<T>(true, data, message, ResultType.Warning);
     }
@@ -42,7 +42,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de erro
     /// </summary>
-    public static Result<T> Error(string message = "Uma erro ocorreu durante a opera��o")
+    public static Result<T> Error(string message = "Uma erro ocorreu durante a operação")
     {
         return new Result<T>(false, default, message, ResultType.Error);
     }
@@ -50,7 +50,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de erro com dados
     /// </summary>
-    public static Result<T> Error(T? data, string message = "Uma erro ocorreu durante a opera��o")
+    public static Result<T> Error(T? data, string message = "Uma erro ocorreu durante a operação")
     {
         return new Result<T>(false, data, message, ResultType.Error);
     }

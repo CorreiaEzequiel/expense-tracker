@@ -6,17 +6,14 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure connection string (SQLite)
 builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
 {
     { "ConnectionStrings:DefaultConnection", "Data Source=expense_tracker.db" }
 });
 
-// Add services
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -37,7 +34,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExpenseTracker API v1"));
 
@@ -47,11 +43,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Ensure database is created and migrations are applied at startup to guarantee persistence
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ExpenseTracker.Infrastructure.Data.AppDbContext>();
-    // Apply migrations if any; fallback to EnsureCreated to create the database when migrations are not used
     try
     {
         db.Database.Migrate();
