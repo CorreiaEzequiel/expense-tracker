@@ -24,14 +24,17 @@ public class CategoryService : ICategoryService
 
     public async Task<Result<CategoryResponse>> CreateAsync(CreateCategoryRequest request)
     {
-        ExpenseTracker.Domain.Entities.Category category;
-        try
+        var createResult = Category.Create(request.Description, request.Purpose);
+        
+        if (!createResult.IsSuccess)
         {
-            category = Category.Create(request.Description, request.Purpose);
+            return Result<CategoryResponse>.Error(createResult.Message);
         }
-        catch (Exception ex)
+        
+        var category = createResult.Data;
+        if (category == null)
         {
-            return Result<CategoryResponse>.Error(ex.Message);
+            return Result<CategoryResponse>.Error("Erro ao criar categoria");
         }
 
         try

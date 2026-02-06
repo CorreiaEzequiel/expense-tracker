@@ -24,14 +24,17 @@ public class PersonService : IPersonService
 
     public async Task<Result<PersonResponse>> CreateAsync(CreatePersonRequest request)
     {
-        Person person;
-        try
+        var createResult = Person.Create(request.Name, request.DateOfBirth);
+        
+        if (!createResult.IsSuccess)
         {
-            person = Person.Create(request.Name, request.DateOfBirth);
+            return Result<PersonResponse>.Error(createResult.Message);
         }
-        catch (Exception ex)
+        
+        var person = createResult.Data;
+        if (person == null)
         {
-            return Result<PersonResponse>.Error(ex.Message);
+            return Result<PersonResponse>.Error("Erro ao criar pessoa");
         }
 
         try
