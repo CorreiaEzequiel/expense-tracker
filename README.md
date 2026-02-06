@@ -154,8 +154,7 @@ A aplicação estará disponível em:
 ### **Transactions**
 - `GET /api/transactions/summary` - Retorna resumo financeiro (receita, despesa, saldo)
 - `POST /api/transactions` - Cria nova transação
-- `PUT /api/transactions/{id}` - Atualiza transação
-- `DELETE /api/transactions/{id}` - Remove transação
+
 
 ### **⭐ Relatório Detalhado por Pessoa**
 ```
