@@ -142,8 +142,6 @@ A aplicação estará disponível em:
 ### **Categories**
 - `GET /api/categories` - Lista todas as categorias
 - `POST /api/categories` - Cria nova categoria
-- `PUT /api/categories/{id}` - Atualiza categoria
-- `DELETE /api/categories/{id}` - Remove categoria
 
 ### **People**
 - `GET /api/people` - Lista todas as pessoas
