@@ -30,7 +30,7 @@ namespace ExpenseTracker.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Age = table.Column<int>(type: "INTEGER", nullable: false)
+                    DateOfBirth = table.Column<DateTime>(type: "DATE", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -43,8 +43,8 @@ namespace ExpenseTracker.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Name")
                         .IsRequired()

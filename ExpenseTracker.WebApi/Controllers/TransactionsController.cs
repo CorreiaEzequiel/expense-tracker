@@ -30,6 +30,11 @@ public class TransactionsController : BaseController
         var overall = await _transactionService.GetOverallSummaryAsync();
         return ProcessResult(overall);
     }
+    /// <summary>
+    /// Endpoint principal de relatórios: retorna um relatório detalhado por pessoa
+    /// com agrupamento mensal e totais consolidados.
+    /// Os filtros de data são opcionais - se não informados, retorna todos os períodos.
+    /// </summary>
     [HttpGet("person/{personId:guid}/report")]
     public async Task<IActionResult> GetPersonReport([FromRoute] Guid personId, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
     {

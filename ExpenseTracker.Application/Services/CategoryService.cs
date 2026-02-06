@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.Entities.Enums;
 
 public class CategoryService : ICategoryService
 {
@@ -25,7 +27,7 @@ public class CategoryService : ICategoryService
         ExpenseTracker.Domain.Entities.Category category;
         try
         {
-            category = ExpenseTracker.Domain.Entities.Category.Create(request.Description, request.Purpose);
+            category = Category.Create(request.Description, request.Purpose);
         }
         catch (Exception ex)
         {
@@ -66,9 +68,9 @@ public class CategoryService : ICategoryService
             .Select(g => new CategorySummaryResponse(
                 g.Key.CategoryId,
                 g.Key.Description,
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value),
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value),
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value)
+                g.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value),
+                g.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value),
+                g.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value)
             ));
 
         var list = await groups.ToListAsync();

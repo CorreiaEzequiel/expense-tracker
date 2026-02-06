@@ -14,7 +14,7 @@ public class EfPersonRepository : IPersonRepository
 
     public Task<Person?> GetByIdAsync(Guid id)
     {
-        return _db.Persons.Include(p => p.Transactions).FirstOrDefaultAsync(p => p.Id == id);
+        return _db.Persons.Include(p => p.Transactions).FirstOrDefaultAsync(p => p.Id == id); 
     }
 
     public Task AddAsync(Person person)
@@ -25,7 +25,7 @@ public class EfPersonRepository : IPersonRepository
 
     public Task<System.Collections.Generic.List<Person>> GetAllAsync()
     {
-        // Use ToListAsync for proper EF async execution
+        
         return _db.Persons.ToListAsync();
     }
 

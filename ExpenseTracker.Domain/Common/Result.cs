@@ -3,7 +3,10 @@ namespace ExpenseTracker.Domain.Common;
 using ExpenseTracker.Domain.Entities.Enums;
 
 /// <summary>
-/// Classe genérica para gerenciar retornos sem lançar exceções, seguindo o padrão Result pattern
+/// Result Pattern: Alternativa ao uso de exceÃ§Ãµes para controle de fluxo.
+/// Permite retornar sucesso, avisos ou erros de forma estruturada, facilitando
+/// o tratamento no frontend e evitando try-catch excessivos.
+/// O campo 'Type' permite ao frontend exibir notificaÃ§Ãµes visuais adequadas (toast).
 /// </summary>
 public class Result<T>
 {
@@ -23,7 +26,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de sucesso
     /// </summary>
-    public static Result<T> Success(T? data = default, string message = "Operação realizada com sucesso")
+    public static Result<T> Success(T? data = default, string message = "Operaï¿½ï¿½o realizada com sucesso")
     {
         return new Result<T>(true, data, message, ResultType.Success);
     }
@@ -31,7 +34,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de aviso
     /// </summary>
-    public static Result<T> Warning(T? data = default, string message = "Operação realizada com aviso")
+    public static Result<T> Warning(T? data = default, string message = "Operaï¿½ï¿½o realizada com aviso")
     {
         return new Result<T>(true, data, message, ResultType.Warning);
     }
@@ -39,7 +42,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de erro
     /// </summary>
-    public static Result<T> Error(string message = "Uma erro ocorreu durante a operação")
+    public static Result<T> Error(string message = "Uma erro ocorreu durante a operaï¿½ï¿½o")
     {
         return new Result<T>(false, default, message, ResultType.Error);
     }
@@ -47,7 +50,7 @@ public class Result<T>
     /// <summary>
     /// Cria um resultado de erro com dados
     /// </summary>
-    public static Result<T> Error(T? data, string message = "Uma erro ocorreu durante a operação")
+    public static Result<T> Error(T? data, string message = "Uma erro ocorreu durante a operaï¿½ï¿½o")
     {
         return new Result<T>(false, data, message, ResultType.Error);
     }

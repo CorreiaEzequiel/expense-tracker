@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.Entities.Enums;
 
 public class PersonService : IPersonService
 {
@@ -22,10 +24,10 @@ public class PersonService : IPersonService
 
     public async Task<Result<PersonResponse>> CreateAsync(CreatePersonRequest request)
     {
-        ExpenseTracker.Domain.Entities.Person person;
+        Person person;
         try
         {
-            person = ExpenseTracker.Domain.Entities.Person.Create(request.Name, request.Age);
+            person = Person.Create(request.Name, request.DateOfBirth);
         }
         catch (Exception ex)
         {
@@ -43,7 +45,7 @@ public class PersonService : IPersonService
             return Result<PersonResponse>.Error(realMessage);
         }
 
-        var dto = new PersonResponse(person.Id, person.Name, person.Age);
+        var dto = new PersonResponse(person.Id, person.Name, person.GetAge());
         return Result<PersonResponse>.Success(dto);
     }
 
@@ -51,13 +53,13 @@ public class PersonService : IPersonService
     {
         var person = await _personRepository.GetByIdAsync(id);
         if (person == null) return Result<PersonResponse>.Error("Pessoa não encontrada");
-        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.Age));
+        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.GetAge()));
     }
 
     public async Task<Result<IEnumerable<PersonResponse>>> GetAllAsync()
     {
         var people = await _personRepository.GetAllAsync();
-        var dtos = people.Select(p => new PersonResponse(p.Id, p.Name, p.Age));
+        var dtos = people.Select(p => new PersonResponse(p.Id, p.Name, p.GetAge()));
         return Result<IEnumerable<PersonResponse>>.Success(dtos);
     }
 
@@ -66,15 +68,20 @@ public class PersonService : IPersonService
         var person = await _personRepository.GetByIdAsync(id);
         if (person == null) return Result<PersonResponse>.Error("Pessoa não encontrada");
         person.UpdateName(request.Name);
-        person.UpdateAge(request.Age);
+        person.UpdateDateOfBirth(request.DateOfBirth);
         await _personRepository.SaveChangesAsync();
-        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.Age));
+        return Result<PersonResponse>.Success(new PersonResponse(person.Id, person.Name, person.GetAge()));
     }
 
-    public async Task<Result<bool>> DeleteAsync(System.Guid id)
+    public async Task<Result<bool>> DeleteAsync(Guid id)
     {
         var person = await _personRepository.GetByIdAsync(id);
         if (person == null) return Result<bool>.Error("Pessoa não encontrada");
+        if (person.Transactions != null && person.Transactions.Any())
+        {
+            _transactionRepository.RemoveRange(person.Transactions);
+        }
+
         _personRepository.Remove(person);
         await _personRepository.SaveChangesAsync();
         return Result<bool>.Success(true);
@@ -88,9 +95,9 @@ public class PersonService : IPersonService
             .Select(g => new PersonSummaryResponse(
                 g.Key.PersonId,
                 g.Key.Name,
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value),
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value),
-                g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == ExpenseTracker.Domain.Entities.Enums.TransactionType.Expense).Sum(t => t.Value)
+                g.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value),
+                g.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value),
+                g.Where(t => t.Type == TransactionType.Revenue).Sum(t => t.Value) - g.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Value)
             ));
 
         var list = await groups.ToListAsync();

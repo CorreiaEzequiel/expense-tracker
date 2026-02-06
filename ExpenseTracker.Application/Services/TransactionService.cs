@@ -31,37 +31,41 @@ public class TransactionService : ITransactionService
 
     public async Task<Result<TransactionResponse>> CreateTransactionAsync(CreateTransactionRequest request)
     {
+        // Validação de existência das entidades relacionadas
         var person = await _personRepository.GetByIdAsync(request.PersonId);
         if (person == null) return Result<TransactionResponse>.Error("Pessoa não encontrada");
 
         var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
         if (category == null) return Result<TransactionResponse>.Error("Categoria não encontrada");
 
-        if (request.Type == TransactionType.Revenue && person.Age < 18)
+        // Regra de negócio: menores de 18 anos não podem ter receitas
+        // Retornamos Warning para permitir o fluxo, mas alertar o usuário
+        if (request.Type == TransactionType.Revenue && !person.IsAdult())
             return Result<TransactionResponse>.Warning(default, "Menores de 18 anos não podem registrar receitas.");
 
+        // Validação cruzada: garantir que o tipo de transação é compatível com o propósito da categoria
         if (request.Type == TransactionType.Expense && category.Purpose == CategoryPurpose.Revenue)
             return Result<TransactionResponse>.Error("A categoria selecionada não suporta transações de despesa.");
 
         if (request.Type == TransactionType.Revenue && category.Purpose == CategoryPurpose.Expense)
             return Result<TransactionResponse>.Error("A categoria selecionada não suporta transações de receita.");
 
-        Transaction transaction;
-        try
-        {
-            transaction = Transaction.Create(
-                request.Description,
-                request.Value,
-                request.Type,
-                request.CategoryId,
-                request.PersonId,
-                category,
-                person);
-        }
-        catch (Exception ex)
-        {
-            return Result<TransactionResponse>.Error(ex.Message);
-        }
+        var createResult = Transaction.Create(
+            request.Description,
+            request.Value,
+            request.Type,
+            request.CategoryId,
+            request.PersonId,
+            category,
+            person);
+
+        if (createResult.Type == ResultType.Error)
+            return Result<TransactionResponse>.Error(createResult.Message);
+
+        if (createResult.Type == ResultType.Warning)
+            return Result<TransactionResponse>.Warning(default, createResult.Message);
+
+        var transaction = createResult.Data!;
 
         try
         {
@@ -77,7 +81,7 @@ public class TransactionService : ITransactionService
         return Result<TransactionResponse>.Success(response);
     }
 
-    public async Task<Result<IEnumerable<CategorySummaryResponse>>> GetSummaryByCategoryAsync() // atual usado
+    public async Task<Result<IEnumerable<CategorySummaryResponse>>> GetSummaryByCategoryAsync() 
     {
         var summaries = await _transactionRepository
             .Query()
@@ -103,7 +107,6 @@ public class TransactionService : ITransactionService
         return Result<ReportSummaryResponse>.Success(new ReportSummaryResponse(totalRevenue, totalExpense, net));
     }
 
-    // New method: Detailed report by person
     public async Task<Result<DetailedReportResponse>> GetDetailedReportAsync(Guid personId, DateTime? startDate, DateTime? endDate)
     {
         if (startDate.HasValue && endDate.HasValue && startDate > endDate)

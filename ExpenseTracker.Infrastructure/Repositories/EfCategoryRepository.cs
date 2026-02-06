@@ -25,7 +25,6 @@ public class EfCategoryRepository : ICategoryRepository
 
     public Task<System.Collections.Generic.List<Category>> GetAllAsync()
     {
-        // Use ToListAsync for proper EF async execution
         return _db.Categories.ToListAsync();
     }
 

@@ -4,7 +4,7 @@ public class Person
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
-    public int Age { get; private set; }
+    public DateTime DateOfBirth { get; private set; }
 
     public ICollection<Transaction> Transactions { get; private set; }
 
@@ -15,20 +15,25 @@ public class Person
 
     public static Person Create(string name, int age)
     {
+        throw new NotSupportedException("Use Create(string name, DateTime dateOfBirth) instead.");
+    }
+
+    public static Person Create(string name, DateTime dateOfBirth)
+    {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Nome n„o pode ser vazio", nameof(name));
+            throw new ArgumentException("Nome nÔøΩo pode ser vazio", nameof(name));
 
         if (name.Length > 200)
-            throw new ArgumentException("Nome n„o pode exceder 200 caracteres", nameof(name));
+            throw new ArgumentException("Nome nÔøΩo pode exceder 200 caracteres", nameof(name));
 
-        if (age < 0)
-            throw new ArgumentException("Idade n„o pode ser negativa", nameof(age));
+        if (dateOfBirth > DateTime.Today)
+            throw new ArgumentException("Data de nascimento nÔøΩo pode ser no futuro", nameof(dateOfBirth));
 
         return new Person
         {
             Id = Guid.NewGuid(),
             Name = name,
-            Age = age,
+            DateOfBirth = dateOfBirth,
             Transactions = new List<Transaction>()
         };
     }
@@ -36,21 +41,37 @@ public class Person
     public void UpdateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Nome n„o pode ser vazio", nameof(name));
+            throw new ArgumentException("Nome nÔøΩo pode ser vazio", nameof(name));
 
         if (name.Length > 200)
-            throw new ArgumentException("Nome n„o pode exceder 200 caracteres", nameof(name));
+            throw new ArgumentException("Nome nÔøΩo pode exceder 200 caracteres", nameof(name));
 
         Name = name;
     }
 
-    public void UpdateAge(int age)
+    public void UpdateDateOfBirth(DateTime dateOfBirth)
     {
-        if (age < 0)
-            throw new ArgumentException("Idade n„o pode ser negativa", nameof(age));
+        if (dateOfBirth > DateTime.Today)
+            throw new ArgumentException("Data de nascimento nÔøΩo pode ser no futuro", nameof(dateOfBirth));
 
-        Age = age;
+        DateOfBirth = dateOfBirth;
     }
 
-    public bool IsAdult() => Age >= 18;
+    /// <summary>
+    /// Calcula a idade atual da pessoa com base na data de nascimento.
+    /// Considera se o anivers√°rio j√° ocorreu no ano corrente.
+    /// </summary>
+    public int GetAge()
+    {
+        var today = DateTime.Today;
+        var age = today.Year - DateOfBirth.Year;
+        if (DateOfBirth.Date > today.AddYears(-age)) age--;
+        return age;
+    }
+
+    /// <summary>
+    /// Regra de neg√≥cio cr√≠tica: apenas maiores de 18 anos podem registrar receitas.
+    /// Este m√©todo √© usado nas valida√ß√µes de transa√ß√µes.
+    /// </summary>
+    public bool IsAdult() => GetAge() >= 18;
 }

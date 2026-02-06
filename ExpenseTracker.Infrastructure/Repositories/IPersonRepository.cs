@@ -8,7 +8,7 @@ public interface IPersonRepository
 {
     Task<Person?> GetByIdAsync(Guid id);
     Task AddAsync(Person person);
-    Task<System.Collections.Generic.List<Person>> GetAllAsync();
+    Task<List<Person>> GetAllAsync();
     void Remove(Person person);
     Task SaveChangesAsync();
 }

@@ -17,7 +17,6 @@ public class CategoryMap : IEntityTypeConfiguration<Category>
             .IsRequired()
             .HasMaxLength(400);
 
-        // Map enum Purpose to string in database
         builder.Property(c => c.Purpose)
             .IsRequired()
             .HasConversion<string>();

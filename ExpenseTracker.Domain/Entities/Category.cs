@@ -16,13 +16,13 @@ public class Category
     public static Category Create(string description, CategoryPurpose purpose)
     {
         if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+            throw new ArgumentException("Descriï¿½ï¿½o nï¿½o pode ser vazia", nameof(description));
 
         if (description.Length > 400)
-            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+            throw new ArgumentException("Descriï¿½ï¿½o nï¿½o pode exceder 400 caracteres", nameof(description));
 
         if (!Enum.IsDefined(typeof(CategoryPurpose), purpose))
-            throw new ArgumentException("Propósito de categoria inválido", nameof(purpose));
+            throw new ArgumentException("Propï¿½sito de categoria invï¿½lido", nameof(purpose));
 
         return new Category
         {
@@ -36,10 +36,10 @@ public class Category
     public void UpdateDescription(string description)
     {
         if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+            throw new ArgumentException("Descriï¿½ï¿½o nï¿½o pode ser vazia", nameof(description));
 
         if (description.Length > 400)
-            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+            throw new ArgumentException("Descriï¿½ï¿½o nï¿½o pode exceder 400 caracteres", nameof(description));
 
         Description = description;
     }
@@ -47,14 +47,20 @@ public class Category
     public void UpdatePurpose(CategoryPurpose purpose)
     {
         if (!Enum.IsDefined(typeof(CategoryPurpose), purpose))
-            throw new ArgumentException("Propósito de categoria inválido", nameof(purpose));
+            throw new ArgumentException("Propï¿½sito de categoria invï¿½lido", nameof(purpose));
 
         Purpose = purpose;
     }
 
-   
+    /// <summary>
+    /// Verifica se a categoria pode ser usada em transaÃ§Ãµes de despesa.
+    /// Categorias do tipo 'Expense' ou 'Both' suportam despesas.
+    /// </summary>
     public bool SupportsExpense() => Purpose == CategoryPurpose.Expense || Purpose == CategoryPurpose.Both;
 
-   
+    /// <summary>
+    /// Verifica se a categoria pode ser usada em transaÃ§Ãµes de receita.
+    /// Categorias do tipo 'Revenue' ou 'Both' suportam receitas.
+    /// </summary>
     public bool SupportsRevenue() => Purpose == CategoryPurpose.Revenue || Purpose == CategoryPurpose.Both;
 }

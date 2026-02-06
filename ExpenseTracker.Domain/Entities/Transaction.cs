@@ -1,5 +1,6 @@
 namespace ExpenseTracker.Domain.Entities;
 
+using ExpenseTracker.Domain.Common;
 using ExpenseTracker.Domain.Entities.Enums;
 
 /// <summary>
@@ -23,7 +24,7 @@ public class Transaction
     {
     }
 
-    public static Transaction Create(
+    public static Result<Transaction> Create(
         string description,
         decimal value,
         TransactionType type,
@@ -33,30 +34,27 @@ public class Transaction
         Person person)
     {
         if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentException("Descrição não pode ser vazia", nameof(description));
+            return Result<Transaction>.Error("Descrição não pode ser vazia");
 
         if (description.Length > 400)
-            throw new ArgumentException("Descrição não pode exceder 400 caracteres", nameof(description));
+            return Result<Transaction>.Error("Descrição não pode exceder 400 caracteres");
 
         if (value <= 0)
-            throw new ArgumentException("Valor da transação deve ser maior que zero", nameof(value));
+            return Result<Transaction>.Error("Valor da transação deve ser maior que zero");
 
         if (!Enum.IsDefined(typeof(TransactionType), type))
-            throw new ArgumentException("Tipo de transação inválido", nameof(type));
+            return Result<Transaction>.Error("Tipo de transação inválido");
 
-        if (type == TransactionType.Revenue && person.Age < 18)
-            throw new InvalidOperationException(
-                "Menores de 18 anos não podem registrar transações de receita");
+        if (type == TransactionType.Revenue && !person.IsAdult())
+            return Result<Transaction>.Warning(default, "Menores de 18 anos não podem registrar transações de receita");
 
         if (type == TransactionType.Expense && !category.SupportsExpense())
-            throw new InvalidOperationException(
-                "A categoria selecionada não suporta transações de despesa");
+            return Result<Transaction>.Error("A categoria selecionada não suporta transações de despesa");
 
         if (type == TransactionType.Revenue && !category.SupportsRevenue())
-            throw new InvalidOperationException(
-                "A categoria selecionada não suporta transações de receita");
+            return Result<Transaction>.Error("A categoria selecionada não suporta transações de receita");
 
-        return new Transaction
+        var transaction = new Transaction
         {
             Id = Guid.NewGuid(),
             Description = description,
@@ -68,6 +66,8 @@ public class Transaction
             Category = category,
             Person = person
         };
+
+        return Result<Transaction>.Success(transaction);
     }
 
     public void UpdateDescription(string description)

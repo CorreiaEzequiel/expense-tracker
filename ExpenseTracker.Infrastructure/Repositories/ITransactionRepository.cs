@@ -9,5 +9,6 @@ public interface ITransactionRepository
     IQueryable<Transaction> Query();
     IQueryable<Transaction> QueryWithIncludes();
     Task AddAsync(Transaction transaction);
+    void RemoveRange(IEnumerable<Transaction> transactions);
     Task SaveChangesAsync();
 }

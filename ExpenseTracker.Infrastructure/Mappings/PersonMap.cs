@@ -16,8 +16,9 @@ public class PersonMap : IEntityTypeConfiguration<Person>
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.Property(p => p.Age)
-            .IsRequired();
+        builder.Property(p => p.DateOfBirth)
+            .IsRequired()
+            .HasColumnType("DATE");
 
         builder.HasMany(p => p.Transactions)
             .WithOne(t => t.Person)

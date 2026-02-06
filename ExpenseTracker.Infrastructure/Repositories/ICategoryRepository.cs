@@ -8,6 +8,6 @@ public interface ICategoryRepository
 {
     Task<Category?> GetByIdAsync(Guid id);
     Task AddAsync(Category category);
-    Task<System.Collections.Generic.List<Category>> GetAllAsync();
+    Task<List<Category>> GetAllAsync();
     Task SaveChangesAsync();
 }
